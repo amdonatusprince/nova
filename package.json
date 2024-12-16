@@ -1,0 +1,19 @@
+{
+  "name": "nova",
+  "version": "1.0.0",
+  "repository": "",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "dev": "yarn workspace @nova/frontend dev",
+    "format": "prettier --write ."
+  },
+  "workspaces": [
+    "frontend",
+    "contracts"
+  ],
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "prettier": "^3.2.5"
+  }
+}

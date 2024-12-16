@@ -1,0 +1,39 @@
+{
+  "name": "@nova/contracts",
+  "version": "1.0.0",
+  "private": true,
+  "author": "",
+  "scripts": {},
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "2",
+    "@nomicfoundation/hardhat-ethers": "3",
+    "@nomicfoundation/hardhat-toolbox": "3",
+    "@nomicfoundation/hardhat-verify": "^1.0.0",
+    "@openzeppelin/contracts": "^5.0.2",
+    "@openzeppelin/contracts3.4.2-solc-0.7": "npm:@openzeppelin/contracts@3.4.2-solc-0.7",
+    "@typechain/ethers-v6": "^0.4.3",
+    "@typechain/hardhat": "^9.1.0",
+    "@types/chai": "4",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^22.5.0",
+    "@types/sinon-chai": "^3.2.3",
+    "chai": "4",
+    "dotenv": "^16.4.5",
+    "ethers": "6",
+    "hardhat": "^2.22.5",
+    "hardhat-contract-sizer": "^2.10.0",
+    "hardhat-gas-reporter": "^2.2.1",
+    "solidity-coverage": "^0.8.12",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.17.0",
+    "typechain": "^8.3.2",
+    "typescript": "^5.5.4",
+    "viem": "^2.19.7"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.1.0",
+    "@uniswap/v3-core": "^1.0.1",
+    "@uniswap/v3-periphery": "^1.4.4",
+    "@uniswap/v3-sdk": "^3.13.1"
+  }
+}

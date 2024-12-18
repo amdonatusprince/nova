@@ -60,5 +60,5 @@ const Description = styled.p`
 const DiagramImage = styled(Image)`
   margin-right: auto;
   width: 100%;
-  max-width: 844px;
+  max-width: 1000px;
 `;

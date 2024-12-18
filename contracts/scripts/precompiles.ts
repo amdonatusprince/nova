@@ -87,14 +87,14 @@ export const BANK_ABI = [
 export const SWAP_ABI = [
   {
     inputs: [],
-    name: 'buySkii',
+    name: 'buysNOVAA',
     outputs: [],
     stateMutability: 'payable',
     type: 'function',
   },
   {
     inputs: [{ internalType: 'uint256', name: 'amount', type: 'uint256' }],
-    name: 'sellSkii',
+    name: 'sellsNOVA',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

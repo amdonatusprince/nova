@@ -12,7 +12,7 @@ import { TokenBalanceData } from '@/hooks/useWalletTokens';
 
 import { StakeTokenInput } from './StakeTokenInput';
 
-const STAKED_KII_ADDRESS = '0x8eB71002a452732E4D7DD399fe956a443717C903';
+const STAKED_KII_ADDRESS = '0x999A03C4c31790eB9Bf0e86F8c8439A0119ECE4f';
 
 type StakeCardProps = {
   tokenBalances: Record<Address, TokenBalanceData>;

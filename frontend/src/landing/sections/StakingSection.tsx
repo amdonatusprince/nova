@@ -25,7 +25,6 @@ export const StakingSection: React.FC = () => {
           <Link href="/account/0x56855Cc20f5A6745e88F5d357014a540AB081671">
             <NovaButton className="primary">Visit Demo Profile</NovaButton>
           </Link>
-          <Badge>✨ Connect your wallet & See yours too!</Badge>
         </ButtonWrapper>
 
         <ComponentsImage src={componentsImage} alt="" placeholder="blur" />
@@ -77,30 +76,6 @@ const Description = styled.p`
 const ButtonWrapper = styled.div`
   display: flex;
   position: relative;
-`;
-const Badge = styled.span`
-  display: inline-flex;
-  padding: 6px;
-  width: max-content;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-
-  border-radius: 8px;
-  border: 1px solid #fff;
-  background: rgba(255, 255, 255, 0.74);
-  backdrop-filter: blur(6px);
-
-  color: #5d00ff;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 100%;
-  letter-spacing: -1.12px;
-
-  position: absolute;
-  bottom: -24px;
-  left: 24px;
 `;
 
 const ComponentsImage = styled(Image)`

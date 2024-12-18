@@ -32,7 +32,7 @@ const config: HardhatUserConfig = {
         settings: {
           optimizer: {
             enabled: true,
-            runs: 2 ** 32 - 1,
+            runs: 200,
           },
           metadata: {
             // do not include the metadata hash, since this is machine dependent
@@ -80,6 +80,9 @@ const config: HardhatUserConfig = {
       '@uniswap/lib/contracts/libraries/SafeERC20Namer.sol': {
         version: '0.7.6',
       },
+      'contracts/v3-periphery/interfaces/IPeripheryPaymentsWithFee.sol': {
+        version: '0.7.6'
+      }
     },
   },
   networks: {
@@ -92,11 +95,12 @@ const config: HardhatUserConfig = {
         },
       ],
     },
-    kii: {
-      chainId: 123454321,
-      url: 'https://a.sentry.testnet.kiivalidator.com:8645',
-      accounts: [process.env.PRIVATE_KEY!],
-    },
+    opBNBTestnet: {
+      url: "https://opbnb-testnet-rpc.bnbchain.org",
+      chainId: 5611,
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      allowUnlimitedContractSize: true
+    }
   },
   // @ts-ignore
   gasReporter: {

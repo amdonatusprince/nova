@@ -3,11 +3,11 @@ pragma solidity ^0.8.0;
 
 import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 
-contract StakedKII is ERC20 {
+contract StakedNova is ERC20 {
     uint256 private constant RATIO = 985; // 0.985 * 1000 to avoid floating point
     uint256 private constant RATIO_DENOMINATOR = 1000;
 
-    constructor() ERC20('Staked KII', 'sKII') {}
+    constructor() ERC20('Staked Nova', 'sNOVA') {}
 
     function stake() public payable {
         require(msg.value > 0, 'Must send ETH to stake');

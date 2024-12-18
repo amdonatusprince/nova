@@ -41,8 +41,8 @@ const HomePage: NextPage = () => {
           (a, b) =>
             // 1. valuation -> 2. amount
             b.valuation - a.valuation ||
-            parseFloat(formatUnits(b.balance, b.decimals)) -
-              parseFloat(formatUnits(a.balance, a.decimals)),
+            parseFloat(formatUnits(b.balance || 0n, b.decimals)) -
+              parseFloat(formatUnits(a.balance || 0n, a.decimals)),
         ),
     [tokenBalances],
   );
@@ -146,7 +146,7 @@ const HomePage: NextPage = () => {
                       {...token}
                       balance={token.balance}
                       valuation={
-                        (token.price * parseInt(token.balance.toString())) /
+                        (token.price * parseInt((token.balance || 0n).toString())) /
                         10 ** token.decimals
                       }
                     />

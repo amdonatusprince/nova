@@ -19,7 +19,7 @@ export const StakeTokenInput: React.FC<StakeTokenInputProps> = ({
   ...inputProps
 }) => {
   const balance = parseFloat(
-    formatUnits(tokenBalances[token.address].balance, token.decimals),
+    formatUnits(tokenBalances[token.address]?.balance || 0n, token.decimals),
   );
   return (
     <Container>

@@ -21,7 +21,7 @@ export const BalanceItem: React.FC<BalanceItemProps> = ({
   priceDiff24h,
 }) => {
   const formattedBalance = parseFloat(
-    formatUnits(balance, decimals),
+    formatUnits(balance || 0n, decimals),
   ).toLocaleString(undefined, {
     maximumSignificantDigits: 6,
   });

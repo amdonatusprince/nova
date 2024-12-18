@@ -13,8 +13,8 @@ export type TokenInfo = {
 };
 
 export const KII = {
-  name: 'KII',
-  symbol: 'KII',
+  name: 'opBNB',
+  symbol: 'TBNB',
   decimals: 18,
   address: zeroAddress,
   logoURL: '/assets/kii.png',
@@ -30,10 +30,10 @@ export const KII = {
 } as const;
 
 export const sKII = {
-  name: 'sKII',
-  symbol: 'sKII',
+  name: 'staked Nova',
+  symbol: 'sNOVA',
   decimals: 18,
-  address: '0x8eB71002a452732E4D7DD399fe956a443717C903',
+  address: '0x999A03C4c31790eB9Bf0e86F8c8439A0119ECE4f',
   logoURL: '/assets/skii.png',
   image: (
     <div className="w-[36px] h-[36px] relative">
@@ -57,27 +57,27 @@ export const sKII = {
 } as const;
 
 export const TOKENS = [
-  // {
-  //   name: 'Bitcoin',
-  //   symbol: 'BTC',
-  //   decimals: 8,
-  //   address: '0x0b65426e7595758Fc6cc64F926e56C8f5382E778',
-  //   logoURL: '/assets/btc.png',
-  //   image: (
-  //     <Image
-  //       src="/assets/btc.png"
-  //       alt=""
-  //       width={72}
-  //       height={72}
-  //       style={{ width: 36, height: 36 }}
-  //     />
-  //   ),
-  // },
+  {
+    name: 'Bitcoin',
+    symbol: 'BTC',
+    decimals: 8,
+    address: '0x31a721837d8964772142e1136B8878b6608549F2',
+    logoURL: '/assets/btc.png',
+    image: (
+      <Image
+        src="/assets/btc.png"
+        alt=""
+        width={72}
+        height={72}
+        style={{ width: 36, height: 36 }}
+      />
+    ),
+  },
   {
     name: 'Binance Coin',
     symbol: 'BNB',
     decimals: 18,
-    address: '0xdc0234f76B29b3920fD55bB4322676678FEED5a0',
+    address: '0xE03639b06Be343BC0898FAaA8463EcF6E5c14869',
     logoURL: '/assets/eth.png',
     image: (
       <Image
@@ -93,7 +93,7 @@ export const TOKENS = [
     name: 'Tether',
     symbol: 'USDT',
     decimals: 6,
-    address: '0xf506817d2db2FE531b7Ad2B3DFB3173665C4959C',
+    address: '0xA3142213778e757B2AacAdCEe143B03AacFe7bE9',
     logoURL: '/assets/usdt.png',
     image: (
       <Image
@@ -109,7 +109,7 @@ export const TOKENS = [
     name: 'USD Coin',
     symbol: 'USDC',
     decimals: 6,
-    address: '0xc68326408D812507D34eF4b1583cAe2F62953afE',
+    address: '0x188E24768794fA1f126aB97ff5F06D4c5B4bda42',
     logoURL: '/assets/usdc.png',
     image: (
       <Image
@@ -125,7 +125,7 @@ export const TOKENS = [
     name: 'Dai',
     symbol: 'DAI',
     decimals: 18,
-    address: '0x3a83359aFCF4eD34Ee76620944a791d6DE910979',
+    address: '0x719C9B9CF384E73Ff7D149f237D5cb9004F0d97f',
     logoURL: '/assets/dai.png',
     image: (
       <Image
@@ -141,7 +141,7 @@ export const TOKENS = [
     name: 'RWA Gold',
     symbol: 'GOLD',
     decimals: 18,
-    address: '0xf70893DAf9DeAF1f25C0c67760d6e16A46a19232',
+    address: '0x57a2825c2e54F90b92580b3C690A24EAC55C1702',
     logoURL: '/assets/gold.png',
     image: (
       <Image

@@ -9,7 +9,7 @@ export async function deployTokens() {
 
   const tokenInfo = [
     { name: 'Bitcoin', symbol: 'BTC', decimals: 8 },
-    { name: 'Ethereum', symbol: 'ETH', decimals: 18 },
+    { name: 'Binance Coin', symbol: 'BNB', decimals: 18 },
     { name: 'Tether', symbol: 'USDT', decimals: 6 },
     { name: 'USD Coin', symbol: 'USDC', decimals: 6 },
     { name: 'Dai', symbol: 'DAI', decimals: 18 },
@@ -30,6 +30,7 @@ export async function deployTokens() {
     );
 
     await mockToken.waitForDeployment();
+    await new Promise(resolve => setTimeout(resolve, 5000));
 
     const deployedAddress = await mockToken.getAddress();
     console.log(

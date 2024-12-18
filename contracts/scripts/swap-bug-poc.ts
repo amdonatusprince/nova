@@ -84,7 +84,7 @@ const main = async () => {
   const buyHash = await walletClient.writeContract({
     address: PRECOMPILES.Swap,
     abi: SWAP_ABI,
-    functionName: 'buySkii',
+    functionName: 'buysNOVA',
     value: kiiToBuy,
   });
   console.log('Buy transaction hash:', buyHash);
@@ -112,7 +112,7 @@ const main = async () => {
   const sellHash = await walletClient.writeContract({
     address: PRECOMPILES.Swap,
     abi: SWAP_ABI,
-    functionName: 'sellSkii',
+    functionName: 'sellsNOVA',
     args: [tkiiToSell],
   });
   console.log('Sell transaction hash:', sellHash);
@@ -149,7 +149,7 @@ const main = async () => {
   //   availableDenomsPost: [ { amount: 1699900000000000n, denom: 'tkii' } ]
   // }
 
-  // This will only return the same tkii (sKII) balance as before,
+  // This will only return the same tkii (sNOVA) balance as before,
   // which was originally funded in https://github.com/KiiChain/kii-solidity-contracts/blob/2932b6e50cde33f1bc9e7a82148e1b3aa3bc3c70/scripts/send.ts#L57
   // 1699900000 * 10 ** 6
 };

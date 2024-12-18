@@ -2,8 +2,8 @@ import { encodeBytes32String } from 'ethers';
 import { ethers } from 'hardhat';
 
 export const deployV3 = async () => {
-  const weth = await (await ethers.getContractFactory('WETH9')).deploy();
-  console.log('WETH', await weth.getAddress());
+  const wbnb = await (await ethers.getContractFactory('WBNB')).deploy();
+  console.log('WBNB', await wbnb.getAddress());
 
   const factory = await (
     await ethers.getContractFactory('UniswapV3Factory')
@@ -14,7 +14,7 @@ export const deployV3 = async () => {
 
   const router = await (
     await ethers.getContractFactory('SwapRouter')
-  ).deploy(factory, weth);
+  ).deploy(factory, wbnb);
   console.log('SwapRouter', await router.getAddress());
 
   const nftDescriptor = await (
@@ -28,7 +28,7 @@ export const deployV3 = async () => {
         NFTDescriptor: nftDescriptor,
       },
     })
-  ).deploy(weth, encodeBytes32String('KII'));
+  ).deploy(wbnb, encodeBytes32String('NOVA'));
   console.log(
     'NonfungibleTokenPositionDescriptor',
     await tokenDescriptor.getAddress(),
@@ -36,14 +36,14 @@ export const deployV3 = async () => {
 
   const nfPositionManager = await (
     await ethers.getContractFactory('NonfungiblePositionManager')
-  ).deploy(factory, weth, tokenDescriptor);
+  ).deploy(factory, wbnb, tokenDescriptor);
   console.log(
     'NonfungiblePositionManager',
     await nfPositionManager.getAddress(),
   );
 
   return {
-    weth,
+    wbnb,
     factory,
     router,
     tokenDescriptor,

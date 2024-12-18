@@ -49,7 +49,7 @@ export const NavigationBar = () => {
     <Wrapper>
       <Container>
         <Link href="/">
-          <BrandLogo alt="" src="/assets/kalo-logo.svg" />
+          <BrandLogo alt="" src="/assets/novaLogo.png" />
         </Link>
 
         <NavigationList>
@@ -67,7 +67,7 @@ export const NavigationBar = () => {
 
         <RightContent>
           <NoSSR>
-            <ConnectButton />
+            <ConnectButton showBalance={false} />
           </NoSSR>
         </RightContent>
       </Container>
@@ -124,8 +124,13 @@ const Container = styled.div`
 `;
 
 const BrandLogo = styled.img`
-  width: 95px;
-  height: 36px;
+  height: 68px;
+  width: auto;
+  object-fit: contain;
+  
+  ${onMobile} {
+    height: 28px;
+  }
 `;
 
 const NavigationList = styled.ul`

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import { Address, formatUnits, zeroAddress } from 'viem';
+import { useAccount } from 'wagmi';
 
 import shieldImage from '@/assets/shield.png';
 import { BalanceItem } from '@/components/BalanceItem';
@@ -24,12 +25,12 @@ const AddressDetailPage: NextPage = () => {
   const loading = false;
   const error = '';
   const score = '32.95';
-
+  const { address: connectedAddress } = useAccount()
   const router = useRouter();
-  console.log({ router: router.query });
-  const address = router.query.address as Address;
+  // console.log({ router: router.query });
+  const address = connectedAddress as Address;
   const tokenBalances = useWalletTokens(address);
-
+console.log(tokenBalances)
   const sortedTokens = useMemo(
     () =>
       Object.values(tokenBalances)
@@ -43,8 +44,8 @@ const AddressDetailPage: NextPage = () => {
           (a, b) =>
             // 1. valuation -> 2. amount
             b.valuation - a.valuation ||
-            parseFloat(formatUnits(b.balance, b.decimals)) -
-              parseFloat(formatUnits(a.balance, a.decimals)),
+            parseFloat(formatUnits(b.balance || 0n, b.decimals)) -
+              parseFloat(formatUnits(a.balance || 0n, a.decimals)),
         ),
     [tokenBalances],
   );
@@ -148,7 +149,7 @@ const AddressDetailPage: NextPage = () => {
                       {...token}
                       balance={token.balance}
                       valuation={
-                        (token.price * parseInt(token.balance.toString())) /
+                        (token.price * parseInt((token.balance || 0n).toString())) /
                         10 ** token.decimals
                       }
                     />

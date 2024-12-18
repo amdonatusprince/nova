@@ -1,19 +1,19 @@
 import { connectorsForWallets } from '@rainbow-me/rainbowkit';
-import { coinbaseWallet } from '@rainbow-me/rainbowkit/wallets';
-import { metaMaskWallet } from '@rainbow-me/rainbowkit/wallets';
+import { coinbaseWallet, rainbowWallet, metaMaskWallet, trustWallet } from '@rainbow-me/rainbowkit/wallets';
+
 import { QueryClient } from '@tanstack/react-query';
 import { createConfig, createStorage, http, noopStorage } from 'wagmi';
 
-import { kiichainTestnet } from './chain';
+import { opBNBTestnet } from './chain';
 
 export const queryClient = new QueryClient();
-export const chains = [kiichainTestnet];
+export const chains = [opBNBTestnet];
 
 const connectors = connectorsForWallets(
   [
     {
       groupName: 'Recommended',
-      wallets: [metaMaskWallet, coinbaseWallet],
+      wallets: [metaMaskWallet, trustWallet, rainbowWallet, coinbaseWallet],
     },
   ],
   {
@@ -37,7 +37,7 @@ export const config = createConfig({
         : noopStorage,
   }),
   transports: {
-    [kiichainTestnet.id]: http(),
+    [opBNBTestnet.id]: http(),
   },
 });
 

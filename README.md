@@ -144,10 +144,10 @@ QuoterV2 0xD2dF0d33215bF8924Bebb3490494Af50Aa24b7F1
 └─────────┴─────────────┴──────────────────────────────────────────────┴─────┘
 ```
 
-### Staked KII (Mock)
+### Staked Nova (Mock)
 
 A simple mock contract for sKII (ERC20 token with a fixed swap ratio of `KII:sKII = 1:0.985`)
 
 ```
-StakedKII (Mock) 0x8eB71002a452732E4D7DD399fe956a443717C903
+StakedNova (Mock) 0x8eB71002a452732E4D7DD399fe956a443717C903
 ```

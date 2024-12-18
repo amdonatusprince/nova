@@ -2,11 +2,11 @@
 // Copyright (C) 2015, 2016, 2017 Dapphub
 pragma solidity >=0.8.20 <0.9.0;
 
-contract WETH9 {
+contract WBNB {
     uint256 private constant UINT256_MAX =
         0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
-    string public name = 'Wrapped ETH';
-    string public symbol = 'WETH';
+    string public name = 'Wrapped BNB';
+    string public symbol = 'WBNB';
     uint8 public decimals = 18;
 
     event Approval(address indexed src, address indexed guy, uint wad);

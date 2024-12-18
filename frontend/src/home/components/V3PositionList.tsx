@@ -16,7 +16,7 @@ const positionManagerAbi = parseAbi([
 ]);
 
 const POSITION_MANAGER_ADDRESS =
-  '0x0f7F9402c26b45134953eCfB55B5082A4C643ee0' as const;
+  '0xB0cF94c1D32B57Fc05F8F199a8577EfcB3F62Ed8' as const;
 
 interface Position {
   tokenId: bigint;
@@ -131,7 +131,7 @@ export const V3PositionList: React.FC<V3PositionListProps> = ({ address }) => {
           try {
             // Fetch current sqrtPriceX96 for the pool
             poolAddress = await client.readContract({
-              address: '0x0a707f8E245772a3eDB30B6C9C02F26dC43Fcb5c',
+              address: '0x80Aa65dd6f1Cf24Ded2C183cF94d5854112FA69E',
               abi: parseAbi([
                 'function getPool(address,address,uint24) view returns (address)',
               ]),

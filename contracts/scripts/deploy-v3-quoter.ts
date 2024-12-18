@@ -5,31 +5,49 @@ import { parseUnits } from 'viem';
 
 import { QuoterV2__factory } from '../typechain-types';
 
+// Bitcoin (BTC) deployed to: 0x31a721837d8964772142e1136B8878b6608549F2
+// Binance Coin (BNB) deployed to: 0xE03639b06Be343BC0898FAaA8463EcF6E5c14869
+// Tether (USDT) deployed to: 0xA3142213778e757B2AacAdCEe143B03AacFe7bE9
+// USD Coin (USDC) deployed to: 0x188E24768794fA1f126aB97ff5F06D4c5B4bda42
+// Dai (DAI) deployed to: 0x719C9B9CF384E73Ff7D149f237D5cb9004F0d97f
+// RWA Gold (GOLD) deployed to: 0x57a2825c2e54F90b92580b3C690A24EAC55C1702
+
+
 const TOKENS = {
-  BTC: '0x0b65426e7595758Fc6cc64F926e56C8f5382E778',
-  ETH: '0xdc0234f76B29b3920fD55bB4322676678FEED5a0',
-  USDT: '0xf506817d2db2FE531b7Ad2B3DFB3173665C4959C',
-  USDC: '0xc68326408D812507D34eF4b1583cAe2F62953afE',
+  BTC: '0x31a721837d8964772142e1136B8878b6608549F2',
+  BNB: '0xE03639b06Be343BC0898FAaA8463EcF6E5c14869',
+  USDT: '0xA3142213778e757B2AacAdCEe143B03AacFe7bE9',
+  USDC: '0x188E24768794fA1f126aB97ff5F06D4c5B4bda42',
 };
 
 export const deployV3Quoter = async () => {
-  const WETH = '0xdeC9F9F51f886Efc1032f5F6472D159dD951A259';
-  const UniswapV3Factory = '0x0a707f8E245772a3eDB30B6C9C02F26dC43Fcb5c';
+  const WBNB = '0x3ED1e9de39B7f84AF898bc1Be16109022ec9d1BB';
+  const UniswapV3Factory = '0x7fD493E18f52178485d34A1500a7Fa16e8c1a2b4';
 
   const Quoter = await (
     (await ethers.getContractFactory('QuoterV2')) as QuoterV2__factory
-  ).deploy(UniswapV3Factory, WETH);
+  ).deploy(UniswapV3Factory, WBNB);
   await Quoter.waitForDeployment();
-  console.log(await Quoter.getAddress());
+  console.log('Quoter deployed to:', await Quoter.getAddress());
 
-  const res = await Quoter.quoteExactInputSingle.staticCall({
-    tokenIn: TOKENS.BTC,
-    tokenOut: TOKENS.ETH,
-    fee: 500,
-    amountIn: parseUnits('0.05', 18),
-    sqrtPriceLimitX96: 0n,
-  });
-  console.log(res);
+  try {
+    // First check if pool exists
+    const factory = await ethers.getContractAt('IUniswapV3Factory', UniswapV3Factory);
+    const pool = await factory.getPool(TOKENS.BTC, TOKENS.BNB, 500);
+    console.log('Pool address:', pool);
+
+    // Try to get quote
+    const res = await Quoter.quoteExactInputSingle.staticCall({
+      tokenIn: TOKENS.BTC,
+      tokenOut: TOKENS.BNB,
+      fee: 500,
+      amountIn: parseUnits('0.001', 8), // Reduced amount to 0.001 BTC
+      sqrtPriceLimitX96: 0n,
+    });
+    console.log('Quote result:', res.toString());
+  } catch (error) {
+    console.error('Error getting quote:', error);
+  }
 };
 
 if (require.main === module) {

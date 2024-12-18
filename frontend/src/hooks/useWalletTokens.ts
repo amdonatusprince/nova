@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Address, createPublicClient, erc20Abi, http, zeroAddress } from 'viem';
 import { usePublicClient } from 'wagmi';
 
-import { kiichainTestnet } from '@/constants/chain';
+import { opBNBTestnet } from '@/constants/chain';
 import {
   HARDCODED_TOKEN_PRICES,
   KII,
@@ -25,7 +25,7 @@ interface CoinGeckoPrice {
 }
 
 const client = createPublicClient({
-  chain: kiichainTestnet,
+  chain: opBNBTestnet,
   transport: http(),
 });
 

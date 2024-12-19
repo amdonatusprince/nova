@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import componentsImage from '@/assets/components.png';
+import componentsImage from '@/assets/componentss.png';
 import { NovaButton } from '@/components/NovaButton';
 import { SpaceGroteskFont } from '@/styles/fonts';
 
@@ -79,13 +79,19 @@ const ButtonWrapper = styled.div`
 `;
 
 const ComponentsImage = styled(Image)`
-  width: 716px; // 652 + 32 * 2
-  min-width: 716px;
-  height: 587px; // 523 + 32 * 2
-
+  width: 716px;
+  height: 587px;
   position: absolute;
-  right: -78px; // -46 - 32
-  bottom: -96px; // -64 - 32
-
+  right: -88px;
+  bottom: -96px;
   z-index: -1;
+  object-fit: contain;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    position: relative;
+    right: 0;
+    bottom: 0;
+  }
 `;

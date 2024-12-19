@@ -10,7 +10,7 @@ contract StakedNova is ERC20 {
     constructor() ERC20('Staked Nova', 'sNOVA') {}
 
     function stake() public payable {
-        require(msg.value > 0, 'Must send ETH to stake');
+        require(msg.value > 0, 'Must send BNB to stake');
         uint256 tokensToMint = (msg.value * RATIO) / RATIO_DENOMINATOR;
         _mint(msg.sender, tokensToMint);
     }
@@ -19,18 +19,18 @@ contract StakedNova is ERC20 {
         require(amount > 0, 'Must unstake a positive amount');
         require(balanceOf(msg.sender) >= amount, 'Insufficient balance');
 
-        uint256 ethToReturn = (amount * RATIO_DENOMINATOR) / RATIO;
+        uint256 bnbToReturn = (amount * RATIO_DENOMINATOR) / RATIO;
         require(
-            address(this).balance >= ethToReturn,
-            'Insufficient ETH in contract'
+            address(this).balance >= bnbToReturn,
+            'Insufficient BNB in contract'
         );
 
         _burn(msg.sender, amount);
-        payable(msg.sender).transfer(ethToReturn);
+        payable(msg.sender).transfer(bnbToReturn);
     }
 
-    function estimateStakeOut(uint256 ethAmount) public pure returns (uint256) {
-        return (ethAmount * RATIO) / RATIO_DENOMINATOR;
+    function estimateStakeOut(uint256 bnbAmount) public pure returns (uint256) {
+        return (bnbAmount * RATIO) / RATIO_DENOMINATOR;
     }
 
     function estimateUnstakeOut(

@@ -7,7 +7,7 @@ export type FaucetItemProps = {
   image?: React.ReactNode;
   name: string;
   symbol: string;
-  amount: number;
+  amount: number | undefined;
   decimals: number;
   onClick: (amountInUnits: bigint) => void;
 };
@@ -17,7 +17,7 @@ export const FaucetItem: React.FC<FaucetItemProps> = ({
   name,
   symbol,
   decimals,
-  amount,
+  amount = 0,
   onClick,
 }) => {
   return (
@@ -26,13 +26,13 @@ export const FaucetItem: React.FC<FaucetItemProps> = ({
       <div className="flex flex-col flex-1">
         <span className="name">{name}</span>
         <span className="balance">
-          {amount.toLocaleString()} {symbol}
+          {(amount || 0).toLocaleString()} {symbol}
         </span>
       </div>
       <div className="flex flex-col items-center">
         <NovaButton
           className="shadow primary"
-          onClick={() => onClick(BigInt(amount * 10 ** decimals))}
+          onClick={() => onClick(BigInt((amount || 0) * 10 ** decimals))}
         >
           Claim
         </NovaButton>

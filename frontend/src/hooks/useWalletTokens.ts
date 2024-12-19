@@ -5,10 +5,10 @@ import { usePublicClient } from 'wagmi';
 import { opBNBTestnet } from '@/constants/chain';
 import {
   HARDCODED_TOKEN_PRICES,
-  KII,
+  tBNB,
   TOKENS,
   TokenInfo,
-  sKII,
+  sNOVA,
 } from '@/constants/tokens';
 
 export type TokenBalanceData = TokenInfo & {
@@ -16,13 +16,6 @@ export type TokenBalanceData = TokenInfo & {
   price: number;
   priceDiff24h: number;
 };
-
-interface CoinGeckoPrice {
-  [key: string]: {
-    usd: number;
-    usd_24h_change: number;
-  };
-}
 
 const client = createPublicClient({
   chain: opBNBTestnet,
@@ -39,7 +32,7 @@ export function useWalletTokens(address?: Address) {
     if (!address) return;
 
     const fetchTokenData = async () => {
-      const allTokens = [...TOKENS, sKII];
+      const allTokens = [...TOKENS, sNOVA];
       try {
         const calls = allTokens.flatMap((token) => [
           {
@@ -50,25 +43,17 @@ export function useWalletTokens(address?: Address) {
           },
         ]);
 
-        const [results, kiiBalance] = await Promise.all([
+        const [results, tBNBBalance] = await Promise.all([
           client.multicall({
             contracts: calls,
           }),
           publicClient?.getBalance({ address }).catch(() => 0n) || 0n,
         ]);
 
-        // CoinGecko API에서 가격 정보 가져오기
-        // const ids = tokens.map((token) => token.symbol.toLowerCase()).join(',');
-        // const priceResponse = await fetch(
-        //   `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`,
-        // );
-        // const priceData: CoinGeckoPrice = await priceResponse.json();
-
         const newTokenData: Record<string, TokenBalanceData> = {};
         allTokens.forEach((token, index) => {
           // @ts-ignore
           const balance = results[index].result as bigint;
-          // const priceInfo = priceData[token.symbol.toLowerCase()];
           if (balance === 0n) {
             return;
           }
@@ -81,19 +66,16 @@ export function useWalletTokens(address?: Address) {
                   HARDCODED_TOKEN_PRICES[token.address]
                 : 0,
             priceDiff24h: 0,
-            // price: priceInfo?.usd || 0,
-            // priceDiff24h: priceInfo?.usd_24h_change || 0,
           };
         });
 
-        console.log(results);
 
         setTokenData({
           ...newTokenData,
           [zeroAddress]: {
-            ...KII,
-            balance: kiiBalance || 0n,
-            price: HARDCODED_TOKEN_PRICES[KII.address],
+            ...tBNB,
+            balance: tBNBBalance || 0n,
+            price: HARDCODED_TOKEN_PRICES[tBNB.address],
             priceDiff24h: 0,
           },
         });

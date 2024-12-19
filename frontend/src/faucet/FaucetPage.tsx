@@ -1,28 +1,23 @@
-import styled from '@emotion/styled';
+
 import { NextPage } from 'next';
-import Image from 'next/image';
 import React from 'react';
 import { parseAbi } from 'viem';
 import { useAccount, useWalletClient } from 'wagmi';
-
-import kiiToSkiiImage from '@/assets/kii-to-skii.png';
-import shieldImage from '@/assets/shield.png';
-import { BalanceItem } from '@/components/BalanceItem';
 import { BalanceList } from '@/components/BalanceList';
 import { FaucetItem } from '@/components/FaucetItem';
 import { Notification } from '@/components/Notification';
 import { client } from '@/constants/chain';
-import { TOKENS, getToken, sKII } from '@/constants/tokens';
-import { usePassportScore } from '@/hooks/usePassportScore';
-import { useWalletTokens } from '@/hooks/useWalletTokens';
+import { TOKENS, getToken } from '@/constants/tokens';
 
-const TOKEN_AMOUNTS = {
+
+const TOKEN_AMOUNTS: Record<string, number> = {
   BTC: 0.005,
   BNB: 0.5,
   USDC: 10,
   USDT: 10,
   DAI: 10,
   GOLD: 1,
+  sNOVA: 1,
 };
 
 const FaucetPage: NextPage = () => {

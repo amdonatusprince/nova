@@ -12,8 +12,7 @@ import { useAccount, useReadContract } from 'wagmi';
 //   useNetwork,
 //   usePrepareContractWrite,
 // } from 'wagmi';
-import kiiToSkiiImage from '@/assets/kii-to-skii.png';
-import shieldImage from '@/assets/shield.png';
+
 import { BalanceItem } from '@/components/BalanceItem';
 import { Notification } from '@/components/Notification';
 import { Button } from '@/components/ui/button';
@@ -36,9 +35,11 @@ import { TOKENS, TokenInfo } from '@/constants/tokens';
 // } from '@/components/ui/select';
 import { usePassportScore } from '@/hooks/usePassportScore';
 import { useWalletTokens } from '@/hooks/useWalletTokens';
+import { Spinner } from '../../src/home/components/StakeCard';
+import { NovaButton } from '@/components/NovaButton';
 
 const SWAP_ROUTER_ADDRESS = '0xEEDf468F8cc80BcaF7a22d400BE416CF6AF22fe5';
-const QUOTER_ADDRESS = '0xD2dF0d33215bF8924Bebb3490494Af50Aa24b7F1'; // Replace with the actual Quoter contract address on Kiichain Testnet
+const QUOTER_ADDRESS = '0x283d04f6Dd5E05a93B551346f6621D1563628DC1'; 
 
 const swapABI = [
   {
@@ -129,6 +130,8 @@ const SwapPage: NextPage = () => {
   const [tokenOut, setTokenOut] = useState<TokenInfo>(TOKENS[1]);
   const [draft, setDraft] = useState<string>('');
   const [estimation, setEstimation] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { address } = useAccount();
 
@@ -281,14 +284,20 @@ const SwapPage: NextPage = () => {
             </div>
           </CardContent>
           <CardFooter>
-            <Button
+            <NovaButton
               onClick={handleSwap}
-              // disabled={!swap || isLoading || !amountIn || !amountOut}
-              className="w-full"
+              disabled={!!error || !draft || draft === '0' || isLoading}
+              className="w-full primary"
             >
-              {/* {isLoading ? 'Swapping...' : 'Swap'} */}
-              Swap
-            </Button>
+              {isLoading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <Spinner className="w-5 h-5" />
+                  <span>Processing...</span>
+                </div>
+              ) : (
+                'Swap'
+              )}
+            </NovaButton>
           </CardFooter>
         </Card>
       </main>

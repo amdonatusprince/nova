@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { Address, zeroAddress } from 'viem';
-
-import skiiImage from '@/assets/skii.png';
+import sNovaImage from '../../public/assets/sNova.png';
 
 export type TokenInfo = {
   name: string;
@@ -12,15 +11,15 @@ export type TokenInfo = {
   image: React.ReactNode;
 };
 
-export const KII = {
-  name: 'opBNB',
-  symbol: 'TBNB',
+export const tBNB = {
+  name: 'BNB',
+  symbol: 'tBNB',
   decimals: 18,
   address: zeroAddress,
-  logoURL: '/assets/kii.png',
+  logoURL: '/assets/bnb.png',
   image: (
     <Image
-      src="/assets/kii.png"
+      src="/assets/bnb.png"
       alt=""
       width={72}
       height={72}
@@ -29,16 +28,16 @@ export const KII = {
   ),
 } as const;
 
-export const sKII = {
+export const sNOVA = {
   name: 'staked Nova',
   symbol: 'sNOVA',
   decimals: 18,
   address: '0x999A03C4c31790eB9Bf0e86F8c8439A0119ECE4f',
-  logoURL: '/assets/skii.png',
+  logoURL: '/assets/sNova.png',
   image: (
     <div className="w-[36px] h-[36px] relative">
       <Image
-        src={skiiImage}
+        src={sNovaImage}
         alt=""
         width={72}
         height={72}
@@ -46,7 +45,7 @@ export const sKII = {
       />
       <Image
         className="absolute left-0 right-0 top-2"
-        src={skiiImage}
+        src={sNovaImage}
         alt=""
         width={72}
         height={72}
@@ -74,14 +73,14 @@ export const TOKENS = [
     ),
   },
   {
-    name: 'Binance Coin',
-    symbol: 'BNB',
+    name: 'NOVA',
+    symbol: 'sNOVA',
     decimals: 18,
     address: '0xE03639b06Be343BC0898FAaA8463EcF6E5c14869',
-    logoURL: '/assets/eth.png',
+    logoURL: '/assets/sNova.png',
     image: (
       <Image
-        src="/assets/eth.png"
+        src="/assets/sNova.png"
         alt=""
         width={72}
         height={72}
@@ -164,6 +163,6 @@ export const getToken = (addr: string) => {
 };
 
 export const HARDCODED_TOKEN_PRICES = {
-  [KII.address]: 1.028,
-  [sKII.address]: 1.002,
+  [tBNB.address]: 1.028,
+  [sNOVA.address]: 185.00,
 };

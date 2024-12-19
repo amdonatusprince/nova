@@ -3,16 +3,16 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Address, formatEther, parseEther } from 'viem';
 import { useAccount, useWalletClient } from 'wagmi';
-
-import kiiToSkiiImage from '@/assets/kii-to-skii.png';
+import { Toaster, toast } from 'react-hot-toast';
+import bnbToSnovaImage from '@/assets/bnb-to-snova.png';
 import { NovaButton } from '@/components/NovaButton';
 import { client } from '@/constants/chain';
-import { KII, sKII } from '@/constants/tokens';
+import { tBNB, sNOVA, HARDCODED_TOKEN_PRICES } from '@/constants/tokens';
 import { TokenBalanceData } from '@/hooks/useWalletTokens';
 
 import { StakeTokenInput } from './StakeTokenInput';
 
-const STAKED_KII_ADDRESS = '0x999A03C4c31790eB9Bf0e86F8c8439A0119ECE4f';
+const STAKED_NOVA_ADDRESS = '0x999A03C4c31790eB9Bf0e86F8c8439A0119ECE4f';
 
 type StakeCardProps = {
   tokenBalances: Record<Address, TokenBalanceData>;
@@ -21,35 +21,51 @@ export const StakeCard: React.FC<StakeCardProps> = ({ tokenBalances }) => {
   const [stage, setStage] = useState<'main' | 'stake' | 'unstake'>('main');
   const [draft, setDraft] = useState<string>('');
   const [estimation, setEstimation] = useState<string>('0');
+  const [error, setError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (draft === '') {
+    if (!draft || draft === '0') {
       setEstimation('0');
+      setError('');
       return;
     }
 
     const fetchEstimation = async () => {
       try {
-        const amount = parseEther(draft);
-        const functionName =
-          stage === 'stake' ? 'estimateStakeOut' : 'estimateUnstakeOut';
+        const amount = parseFloat(draft);
+        const balance = stage === 'stake' 
+          ? parseFloat(formatEther(tokenBalances[tBNB.address]?.balance || 0n))
+          : parseFloat(formatEther(tokenBalances[sNOVA.address]?.balance || 0n));
+        
+        if (amount > balance) {
+          setError('Insufficient balance');
+          setEstimation('0');
+          return;
+        }
 
-        const estimatedAmount = await client.readContract({
-          address: STAKED_KII_ADDRESS,
-          abi: ABI,
-          functionName,
-          args: [amount],
-        });
-
-        setEstimation(formatEther(estimatedAmount));
+        setError('');
+        
+        if (stage === 'stake') {
+          const bnbPrice = HARDCODED_TOKEN_PRICES[tBNB.address];
+          const sNovaPrice = HARDCODED_TOKEN_PRICES[sNOVA.address];
+          const ratio = sNovaPrice / bnbPrice;
+          setEstimation((amount * ratio).toString());
+        } else {
+          const bnbPrice = HARDCODED_TOKEN_PRICES[tBNB.address];
+          const sNovaPrice = HARDCODED_TOKEN_PRICES[sNOVA.address];
+          const ratio = bnbPrice / sNovaPrice;
+          setEstimation((amount * ratio).toString());
+        }
       } catch (error) {
         console.error('Estimation failed:', error);
         setEstimation('0');
+        setError('Invalid amount');
       }
     };
 
     fetchEstimation();
-  }, [draft, stage]);
+  }, [draft, stage, tokenBalances]);
 
   const { address } = useAccount();
   const walletClientRes = useWalletClient();
@@ -57,24 +73,25 @@ export const StakeCard: React.FC<StakeCardProps> = ({ tokenBalances }) => {
   const handleSwap = async () => {
     const walletClient = walletClientRes.data;
     if (!address || !walletClient) {
-      alert('Please connect your wallet');
+      toast.error('Please connect your wallet');
       return;
     }
 
+    setIsLoading(true);
     try {
       const amount = parseEther(draft);
       let tx;
 
       if (stage === 'stake') {
         tx = await walletClient.writeContract({
-          address: STAKED_KII_ADDRESS,
+          address: STAKED_NOVA_ADDRESS,
           abi: ABI,
           functionName: 'stake',
           value: amount,
         });
       } else {
         tx = await walletClient.writeContract({
-          address: STAKED_KII_ADDRESS,
+          address: STAKED_NOVA_ADDRESS,
           abi: ABI,
           functionName: 'unstake',
           args: [amount],
@@ -83,29 +100,34 @@ export const StakeCard: React.FC<StakeCardProps> = ({ tokenBalances }) => {
 
       const receipt = await client.waitForTransactionReceipt({ hash: tx });
       console.log(receipt);
-      alert(`${stage === 'stake' ? 'Stake' : 'Unstake'} successful!`);
+      
+      toast.success(
+        `Successfully ${stage === 'stake' ? 'staked' : 'unstaked'} ${draft} ${
+          stage === 'stake' ? 'BNB' : 'sNOVA'
+        }`
+      );
+      
       setDraft('');
       setEstimation('0');
     } catch (error) {
-      console.error(
-        `${stage === 'stake' ? 'Stake' : 'Unstake'} failed:`,
-        error,
+      console.error(`${stage === 'stake' ? 'Stake' : 'Unstake'} failed:`, error);
+      toast.error(
+        `Failed to ${stage === 'stake' ? 'stake' : 'unstake'}. Please try again.`
       );
-      alert(
-        `${stage === 'stake' ? 'Stake' : 'Unstake'} failed. Please try again.`,
-      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <Container>
       <StakeImageWrapper>
-        <StakeImage src={kiiToSkiiImage} alt="" />
-        <AbsoluteStakeImage src={kiiToSkiiImage} alt="" />
+        <StakeImage src={bnbToSnovaImage} alt="" />
+        <AbsoluteStakeImage src={bnbToSnovaImage} alt="" />
       </StakeImageWrapper>
       {stage === 'main' ? (
         <>
-          <StakeTitle>Stake KII and receive sKII</StakeTitle>
+          <StakeTitle>Stake your BNB and receive sNOVA</StakeTitle>
           <div className="mt-[10px] flex items-center w-full gap-[6px]">
             <NovaButton
               className="flex-1 primary"
@@ -122,7 +144,7 @@ export const StakeCard: React.FC<StakeCardProps> = ({ tokenBalances }) => {
         <div className="flex flex-col w-full">
           <InteractionTitleContainer>
             <InteractionTitle>
-              {stage === 'stake' ? 'Stake KII' : 'Unstake sKII'}
+              {stage === 'stake' ? 'Stake BNB' : 'Unstake sNOVA'}
             </InteractionTitle>
             <Chavron
               className="transition-opacity cursor-pointer hover:opacity-65"
@@ -138,35 +160,42 @@ export const StakeCard: React.FC<StakeCardProps> = ({ tokenBalances }) => {
           <div className="mt-[10px] flex flex-col items-center w-full gap-[10px]">
             <StakeTokenInput
               label="Sell"
-              token={stage === 'stake' ? KII : sKII}
+              token={stage === 'stake' ? tBNB : sNOVA}
               value={draft}
               placeholder="0"
+              onChange={(e) => setDraft(e.target.value)}
               tokenBalances={tokenBalances}
-              onChange={(e) => {
-                setDraft(e.target.value);
-              }}
-              setValue={setDraft}
             />
+            {error && (
+              <span className="text-red-500 text-sm w-full text-left">
+                {error}
+              </span>
+            )}
             <StakeTokenInput
               label="Buy"
-              token={stage === 'stake' ? sKII : KII}
-              disabled
+              token={stage === 'stake' ? sNOVA : tBNB}
               value={estimation}
+              disabled
               tokenBalances={tokenBalances}
-              onChange={(e) => {
-                setEstimation(e.target.value);
-              }}
             />
             <NovaButton
-              className="flex-1 w-full primary"
-              style={{ padding: '12px 0' }}
+              className="w-full primary"
               onClick={handleSwap}
+              disabled={!!error || !draft || draft === '0' || isLoading}
             >
-              Swap
+              {isLoading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <Spinner className="w-5 h-5" />
+                  <span>Processing...</span>
+                </div>
+              ) : (
+                stage === 'stake' ? 'Stake' : 'Unstake'
+              )}
             </NovaButton>
           </div>
         </div>
       )}
+      <Toaster position="bottom-right" />
     </Container>
   );
 };
@@ -663,3 +692,26 @@ const ABI = [
     type: 'receive',
   },
 ] as const;
+
+export const Spinner = ({ className = "" }) => (
+  <svg 
+    className={`animate-spin ${className}`} 
+    xmlns="http://www.w3.org/2000/svg" 
+    fill="none" 
+    viewBox="0 0 24 24"
+  >
+    <circle 
+      className="opacity-25" 
+      cx="12" 
+      cy="12" 
+      r="10" 
+      stroke="currentColor" 
+      strokeWidth="4"
+    />
+    <path 
+      className="opacity-75" 
+      fill="currentColor" 
+      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+    />
+  </svg>
+);

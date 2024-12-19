@@ -8,7 +8,7 @@ import { useAccount } from 'wagmi';
 import shieldImage from '@/assets/shield.png';
 import { BalanceItem } from '@/components/BalanceItem';
 import { Notification } from '@/components/Notification';
-import { sKII } from '@/constants/tokens';
+import { sNOVA } from '@/constants/tokens';
 import { usePassportScore } from '@/hooks/usePassportScore';
 import { useWalletTokens } from '@/hooks/useWalletTokens';
 import { shortenAddress } from '@/utils/address';
@@ -114,14 +114,14 @@ const HomePage: NextPage = () => {
               </div>
 
               <BalanceItem
-                {...sKII}
-                balance={tokenBalances[sKII.address]?.balance || 0n}
+                {...sNOVA}
+                balance={tokenBalances[sNOVA.address]?.balance || 0n}
                 valuation={
                   1.002 *
                   parseFloat(
                     formatUnits(
-                      tokenBalances[sKII.address]?.balance || 0n,
-                      sKII.decimals,
+                      tokenBalances[sNOVA.address]?.balance || 0n,
+                      sNOVA.decimals,
                     ),
                   )
                 }
@@ -139,7 +139,7 @@ const HomePage: NextPage = () => {
               <CardTitle>Assets</CardTitle>
               <BalanceList>
                 {sortedTokens
-                  .filter((v) => v.address !== sKII.address)
+                  .filter((v) => v.address !== sNOVA.address)
                   .map((token) => (
                     <BalanceItem
                       key={token.address}

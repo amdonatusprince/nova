@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Image from 'next/image';
 import { Address, formatUnits } from 'viem';
 
-import { HARDCODED_TOKEN_PRICES, KII, TokenInfo } from '@/constants/tokens';
+import { HARDCODED_TOKEN_PRICES, TokenInfo } from '@/constants/tokens';
 import { TokenBalanceData } from '@/hooks/useWalletTokens';
 
 type StakeTokenInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
@@ -94,12 +94,16 @@ const Input = styled.input`
   line-height: normal;
   letter-spacing: -1.4px;
   flex: 1;
+  width: calc(100% - 150px);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 const TokenContainer = styled.div`
   position: absolute;
   top: 10px;
   right: 16px;
-
+  min-width: 140px;
   display: flex;
   padding: 10px;
   padding-right: 12px;

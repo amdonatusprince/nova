@@ -26,6 +26,23 @@ NOVA provides a comprehensive dashboard where users can connect their opBNB wall
 - This creates a decentralized knowledge base that enhances the ecosystem's overall value
 - Implemented through our `Experimentor` contract at `0x345x283d04f6Dd5E05a93B551346f6`
 
+### Proof of Humanity Integration
+
+In the era of increasing Sybil attacks and artificial network manipulation, NOVA implements robust identity verification through [Gitcoin Passport](https://support.passport.xyz/passport-knowledge-base) integration. This system:
+
+- Protects the experimental data network from manipulation
+- Ensures the quality of scientific contributions
+- Provides a trustworthiness metric for participants
+- Helps in fair distribution of sNOVA rewards
+
+The Humanity Score is calculated based on:
+- Web2 verifications (GitHub, Discord, Twitter activity)
+- Web3 credentials (NFT ownership, transaction history)
+- Scientific contribution history
+- Peer reviews and validations
+
+This implementation helps maintain the integrity of our scientific data network while ensuring fair reward distribution to genuine contributors.
+
 ### One-Click Staking
 
 ![Stake](https://github.com/0xinevitable/nova/raw/main/.github/assets/stake.png)

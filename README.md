@@ -1,6 +1,4 @@
-# NOVA
-
-![NOVA - AI-powered DeFi Hub for opBNB](https://github.com/0xinevitable/nova/raw/main/.github/assets/cover.png)
+![NOVA - AI-powered DeFi Hub for opBNB](https://github.com/amdonatusprince/nova/blob/main/.github/assets/landing.png)
 
 NOVA is the first on-chain autonomous decentralized hub built specifically for the opBNB ecosystem. It enables users to trade, stake, and manage their assets with AI-powered DeFi tools with a single dashboard.
 
@@ -9,7 +7,10 @@ Demo Video: https://youtu.be/IT4WqHqvcc4
 
 Website URL: https://nova-plum-beta.vercel.app
 
-## Background
+## Overview
+
+![NOVA - Protocol Overview](https://github.com/amdonatusprince/nova/blob/main/.github/assets/features.png)
+
 - NOVA creates a unique ecosystem where experimenters and scientists can contribute their findings to build reputable on-chain data networks, earning sNOVA tokens for their contributions.
 - One of DeFi's core challenges is the fragmentation of liquidity and information, which significantly impacts user onboarding. NOVA addresses this by creating a unified hub for all DeFi activities on opBNB.
 - With the emergence of new chains and protocols, liquidity often becomes scattered across multiple platforms. NOVA aims to consolidate these fragmented resources into a single, efficient platform for the opBNB ecosystem.
@@ -28,6 +29,8 @@ NOVA provides a comprehensive dashboard where users can connect their opBNB wall
 
 ### Proof of Humanity Integration
 
+![Humanity Verification](https://github.com/amdonatusprince/nova/blob/main/.github/assets/gitcoin-passport.png)
+
 In the era of increasing Sybil attacks and artificial network manipulation, NOVA implements robust identity verification through [Gitcoin Passport](https://support.passport.xyz/passport-knowledge-base) integration. This system:
 
 - Protects the experimental data network from manipulation
@@ -45,13 +48,13 @@ This implementation helps maintain the integrity of our scientific data network 
 
 ### One-Click Staking
 
-![Stake](https://github.com/0xinevitable/nova/raw/main/.github/assets/stake.png)
+![Stake](https://github.com/amdonatusprince/nova/blob/main/.github/assets/stake.png)
 
 Our staking mechanism is implemented through the StakedNova contract: `0x999A03C4c31790eB9Bf0e86F8c8439A0119ECE4f`
 
 ## Concentrated Liquidity DEX
 
-![Positions](https://github.com/0xinevitable/nova/raw/main/.github/assets/positions.png)
+![Liquidity Positions](https://github.com/amdonatusprince/nova/blob/main/.github/assets/liquidity.png)
 
 ### Mocked ERC20s
 

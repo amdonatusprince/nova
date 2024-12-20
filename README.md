@@ -25,7 +25,11 @@ NOVA provides a comprehensive dashboard where users can connect their opBNB wall
 - Scientists and researchers can contribute their experimental findings to our on-chain data network
 - Contributors earn sNOVA tokens for verified and valuable data submissions
 - This creates a decentralized knowledge base that enhances the ecosystem's overall value
-- Implemented through our `Experimentor` contract at `0x345x283d04f6Dd5E05a93B551346f6`
+- Implemented through our `Experimentor` contract in the table below
+
+| Contract Name | Address |
+| --- | --- |
+| Experiments | 0xCD82463590Acca12bb4D0e3Bdd89Ffdddd441b8F |
 
 ### Proof of Humanity Integration
 

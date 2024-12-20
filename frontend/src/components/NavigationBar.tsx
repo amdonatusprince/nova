@@ -25,6 +25,10 @@ const NAVIGATION_ITEMS = [
     href: '/home',
   },
   {
+    title: 'Experiments',
+    href: '/experiments',
+  },
+  {
     title: 'Swap',
     href: '/swap',
   },

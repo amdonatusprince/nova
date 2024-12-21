@@ -29,7 +29,7 @@ NOVA provides a comprehensive dashboard where users can connect their opBNB wall
 
 | Contract Name | Address |
 | --- | --- |
-| Experiments | 0xCD82463590Acca12bb4D0e3Bdd89Ffdddd441b8F |
+| Experiments | 0x7032EA7efDe6cb37c558812D304d95Db9590D41E |
 
 ### Proof of Humanity Integration
 

@@ -102,7 +102,7 @@ export const MyExperiments = ({ address }: MyExperimentsProps) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {userExperiments.map((experiment) => (
+      {[...userExperiments].reverse().map((experiment) => (
         <div 
           key={experiment.id} 
           className="bg-white rounded-xl p-6 space-y-4"

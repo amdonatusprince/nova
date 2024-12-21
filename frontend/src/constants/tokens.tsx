@@ -164,5 +164,5 @@ export const getToken = (addr: string) => {
 
 export const HARDCODED_TOKEN_PRICES = {
   [tBNB.address]: 1.028,
-  [sNOVA.address]: 185.00,
+  [sNOVA.address]: 185000000.00,
 };

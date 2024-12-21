@@ -77,9 +77,13 @@ export const StakeCard: React.FC<StakeCardProps> = ({ tokenBalances }) => {
       return;
     }
 
+    const toastId = toast.loading(
+      `${stage === 'stake' ? 'Staking' : 'Unstaking'} in progress...`
+    );
     setIsLoading(true);
+
     try {
-      const amount = parseEther(draft);
+      const estimatedAmount = parseEther(draft);
       let tx;
 
       if (stage === 'stake') {
@@ -87,14 +91,14 @@ export const StakeCard: React.FC<StakeCardProps> = ({ tokenBalances }) => {
           address: STAKED_NOVA_ADDRESS,
           abi: ABI,
           functionName: 'stake',
-          value: amount,
+          value: estimatedAmount,
         });
       } else {
         tx = await walletClient.writeContract({
           address: STAKED_NOVA_ADDRESS,
           abi: ABI,
           functionName: 'unstake',
-          args: [amount],
+          args: [estimatedAmount],
         });
       }
 
@@ -102,9 +106,10 @@ export const StakeCard: React.FC<StakeCardProps> = ({ tokenBalances }) => {
       console.log(receipt);
       
       toast.success(
-        `Successfully ${stage === 'stake' ? 'staked' : 'unstaked'} ${draft} ${
+        `Successfully ${stage === 'stake' ? 'staked' : 'unstaked'} ${estimation} ${
           stage === 'stake' ? 'BNB' : 'sNOVA'
-        }`
+        }`,
+        { id: toastId }
       );
       
       setDraft('');
@@ -112,7 +117,8 @@ export const StakeCard: React.FC<StakeCardProps> = ({ tokenBalances }) => {
     } catch (error) {
       console.error(`${stage === 'stake' ? 'Stake' : 'Unstake'} failed:`, error);
       toast.error(
-        `Failed to ${stage === 'stake' ? 'stake' : 'unstake'}. Please try again.`
+        `Failed to ${stage === 'stake' ? 'stake' : 'unstake'}. Please try again.`,
+        { id: toastId }
       );
     } finally {
       setIsLoading(false);

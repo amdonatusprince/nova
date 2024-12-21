@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { NovaButton } from '@/components/NovaButton';
 import { Spinner } from '@/home/components/StakeCard';
-import { PinataSDK } from 'pinata';
-import { useWalletClient, useAccount } from 'wagmi';
+import { PinataSDK } from 'pinata-web3';
+import { useWalletClient, useAccount, usePublicClient } from 'wagmi';
 import experiment from '../experiment.json'
 
 interface Attribute {
@@ -25,13 +25,14 @@ const pinata = new PinataSDK({
   pinataGateway: process.env.NEXT_PUBLIC_GATEWAY!,
 });
 
-const EXPERIMENTS_ADDRESS = '0xCD82463590Acca12bb4D0e3Bdd89Ffdddd441b8F';
+const EXPERIMENTS_ADDRESS = '0x7032EA7efDe6cb37c558812D304d95Db9590D41E';
 
 export const ExperimentForm = () => {
-  const { register, handleSubmit } = useForm<ExperimentFormData>();
+  const { register, handleSubmit, reset } = useForm<ExperimentFormData>();
   const [attributes, setAttributes] = useState<Attribute[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const publicClient = usePublicClient();
   const { data: walletClient } = useWalletClient();
   const { address } = useAccount();
 
@@ -42,13 +43,14 @@ export const ExperimentForm = () => {
   const onSubmit = async (data: ExperimentFormData) => {
     const toastId = toast.loading('Uploading to IPFS...');
     setIsLoading(true);
+    
     try {
       // 1. Upload image to IPFS
       const imageFile = data.image[0] as File;
       if (!imageFile) throw new Error('No image selected');
 
       const imageUpload = await pinata.upload.file(imageFile);
-      const imageUrl = `ipfs://${imageUpload.cid}`;
+      const imageUrl = `https://teal-special-manatee-535.mypinata.cloud/ipfs/${imageUpload.IpfsHash}`;
 
       // 2. Create and upload metadata
       const metadata = {
@@ -64,15 +66,15 @@ export const ExperimentForm = () => {
       const metadataFile = new File([metadataBlob], 'metadata.json', { type: 'application/json' });
 
       const metadataUpload = await pinata.upload.file(metadataFile);
-      const tokenUri = `ipfs://${metadataUpload.cid}`;
-
-      console.log(tokenUri)
+      const tokenUri = `teal-special-manatee-535.mypinata.cloud/ipfs/${metadataUpload.IpfsHash}`;
 
       // Mint NFT using walletClient
       if (!walletClient || !address) {
         throw new Error('Wallet not connected');
       }
 
+      toast.loading('Minting your experiment NFT...', { id: toastId });
+      
       const tx = await walletClient.writeContract({
         address: EXPERIMENTS_ADDRESS,
         abi: experiment,
@@ -80,8 +82,16 @@ export const ExperimentForm = () => {
         args: [address, tokenUri],
       });
 
-      console.log('Transaction:', tx);
-      toast.success('Experiment submitted successfully!', { id: toastId });
+      toast.loading('Waiting for transaction confirmation...', { id: toastId });
+      const receipt = await publicClient?.waitForTransactionReceipt({ hash: tx });
+
+      console.log('Transaction receipt:', receipt);
+      toast.success('Experiment submitted and NFT minted successfully!', { id: toastId });
+
+      // Reset form
+      reset(); // React Hook Form's reset
+      setAttributes([]); // Reset attributes
+      
     } catch (error) {
       console.error('Error:', error);
       toast.error('Failed to submit experiment', { id: toastId });

@@ -1277,6 +1277,7 @@
     framer-motion "^11.14.4"
     lucide-react "^0.338.0"
     next "^14.1.0"
+    pinata "^1.10.1"
     react "18.2.0"
     react-dom "18.2.0"
     react-hook-form "^7.54.1"
@@ -2636,10 +2637,10 @@ axios@^1.6.7:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
-axios@^1.7.4:
-  version "1.7.4"
-  resolved "https://registry.npmjs.org/axios/-/axios-1.7.4.tgz"
-  integrity sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==
+axios@^1.7.4, axios@^1.7.7:
+  version "1.7.9"
+  resolved "https://registry.npmjs.org/axios/-/axios-1.7.9.tgz"
+  integrity sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==
   dependencies:
     follow-redirects "^1.15.6"
     form-data "^4.0.0"
@@ -5745,6 +5746,16 @@ pify@^5.0.0:
   version "5.0.0"
   resolved "https://registry.npmjs.org/pify/-/pify-5.0.0.tgz"
   integrity sha512-eW/gHNMlxdSP6dmG6uJip6FXN0EQBwm2clYYd8Wul42Cwu/DK8HEftzsapcNdYe2MfLiIwZqsDk2RDEsTE79hA==
+
+pinata-web3@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.npmjs.org/pinata-web3/-/pinata-web3-0.5.3.tgz"
+  integrity sha512-0OWm7dFel5Dib/BiOWxPnyMPmv1jviijpnohid8A804D6uZgWiPVBsU/2RbP4E3AEvNiWxPBw7+BqRFOuSLJIw==
+  dependencies:
+    axios "^1.7.7"
+    form-data "^4.0.0"
+    is-ipfs "^8.0.4"
+    node-fetch "^3.3.1"
 
 pinata@^1.10.1:
   version "1.10.1"

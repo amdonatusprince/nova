@@ -17,7 +17,7 @@ const TOKEN_AMOUNTS: Record<string, number> = {
   USDT: 10,
   DAI: 10,
   GOLD: 1,
-  sNOVA: 1,
+  sNOVA: 10000,
 };
 
 const FaucetPage: NextPage = () => {

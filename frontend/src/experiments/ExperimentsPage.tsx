@@ -48,7 +48,7 @@ const ExperimentsPage: NextPage = () => {
               <ExperimentForm />
             </Tab.Panel>
             <Tab.Panel>
-              <ExperimentsList experiments={[]} />
+              <ExperimentsList />
             </Tab.Panel>
             <Tab.Panel>
               <MyExperiments address={address} />

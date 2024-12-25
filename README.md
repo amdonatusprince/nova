@@ -1,4 +1,4 @@
-# Nova - AI-powered DeFi & DeSci Hub for opBNB
+# Nova: AI-powered DeFi & DeSci Hub for opBNB
 
 ![NOVA - AI-powered DeFi Hub for opBNB](https://github.com/amdonatusprince/nova/blob/main/.github/assets/landing.png)
 

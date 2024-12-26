@@ -1,6 +1,9 @@
+# Nova: AI-powered DeFi & DeSci Hub for opBNB
+
 ![NOVA - AI-powered DeFi Hub for opBNB](https://github.com/amdonatusprince/nova/blob/main/.github/assets/landing.png)
 
-NOVA is the first on-chain autonomous decentralized hub built specifically for the opBNB ecosystem. It enables users to trade, stake, and manage their assets with AI-powered DeFi tools with a single dashboard.
+
+NOVA is the first on-chain autonomous decentralized hub built specifically for the opBNB ecosystem. It enables users to trade, stake, and manage their assets with AI-powered DeFi and Desci tools with a single dashboard.
 
 ## Useful Resources
 Demo Video: https://youtu.be/IT4WqHqvcc4
@@ -29,7 +32,7 @@ NOVA provides a comprehensive dashboard where users can connect their opBNB wall
 
 | Contract Name | Address |
 | --- | --- |
-| Experiments | 0xCD82463590Acca12bb4D0e3Bdd89Ffdddd441b8F |
+| Experiments | 0x7032EA7efDe6cb37c558812D304d95Db9590D41E |
 
 ### Proof of Humanity Integration
 

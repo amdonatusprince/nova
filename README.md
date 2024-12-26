@@ -6,7 +6,7 @@
 NOVA is the first on-chain autonomous decentralized hub built specifically for the opBNB ecosystem. It enables users to trade, stake, and manage their assets with AI-powered DeFi and Desci tools with a single dashboard.
 
 ## Useful Resources
-Demo Video: https://youtu.be/IT4WqHqvcc4
+Demo Video: https://youtu.be/tBVm3iPpPKo
 
 Website URL: https://nova-plum-beta.vercel.app
 

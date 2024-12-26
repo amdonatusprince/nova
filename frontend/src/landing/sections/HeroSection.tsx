@@ -9,11 +9,11 @@ export const HeroSection: React.FC = () => {
     <Section>
       <ContentColumn>
         <Title>
-          The DeFi Hub <br />
+          The DeFi & DeSci Hub 
           for opBNB
         </Title>
         <Description>
-          Trade, stake, and manage all your assets with AI powered DeFi tools built for the opBNB ecosystem.
+          Trade, stake, and manage all your assets with AI powered DeFi & DeSci tools built for the opBNB ecosystem.
         </Description>
         <Link href="/home" passHref>
           <StartButton
